@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Temperature Converter</title>
+</head>
+<body>
+    <h1>Temperature Converter</h1>
+    <p>Convert temperatures between Celsius, Fahrenheit, and Kelvin.</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <label for="temperature">Enter Temperature:</label>
+        <input type="number" step="any" name="temperature" id="temperature" value="{{ input_val }}" required>
+        
+        <select name="unit">
+            <option value="C" {% if from_unit == "C" %}selected{% endif %}>Celsius (°C)</option>
+            <option value="F" {% if from_unit == "F" %}selected{% endif %}>Fahrenheit (°F)</option>
+            <option value="K" {% if from_unit == "K" %}selected{% endif %}>Kelvin (K)</option>
+        </select>
+        
+        <button type="submit">Convert</button>
+    </form>
+
+    {% if result_c is not None %}
+        <hr>
+        <h2>Results:</h2>
+        <ul>
+            <li><strong>Celsius:</strong> {{ result_c }} °C</li>
+            <li><strong>Fahrenheit:</strong> {{ result_f }} °F</li>
+            <li><strong>Kelvin:</strong> {{ result_k }} K</li>
+        </ul>
+    {% endif %}
+</body>
+</html>
